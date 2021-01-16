@@ -4,8 +4,14 @@ using System.Text;
 
 namespace Hashcode2021PracticeRound.Models
 {
-    public class DeliveredPizza
+    public class Team
     {
+        public Team(int teamSize)
+        {
+            TeamSize = teamSize;
+            DeliveredPizzas = new int?[teamSize];
+        }
+
         public int TeamSize { get; set; }
         public int?[] DeliveredPizzas { get; set; }
     }

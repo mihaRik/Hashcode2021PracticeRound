@@ -5,16 +5,28 @@ using System.Text;
 
 namespace Hashcode2021PracticeRound
 {
-    public static class MainLogic
+    public class MainLogic : Helper
     {
         public static OutputViewModel GetOutputV1(InputViewModel input)
         {
+            var deliveredPizzas = new List<DeliveredPizza>();
+            var pizzas = input.Pizzas;
+            _pizzasBackup = new Pizza[pizzas.Length];
+            pizzas.CopyTo(_pizzasBackup, 0);
+
+            CalculateTeam(input.TwoPersonTeams, pizzas);
+            CalculateTeam(input.ThreePersonTeams, pizzas);
+            CalculateTeam(input.FourPersonTeams, pizzas);
+
+            deliveredPizzas.AddRange(GetTeamPizza(input.TwoPersonTeams));
+            deliveredPizzas.AddRange(GetTeamPizza(input.ThreePersonTeams));
+            deliveredPizzas.AddRange(GetTeamPizza(input.FourPersonTeams));
 
             return new OutputViewModel
             {
-                DeliveredPizzas = new DeliveredPizza[1] { new DeliveredPizza { DeliveredPizzas = new int[1] { 0 }, TeamSize = 1 } },
+                DeliveredPizzas = deliveredPizzas.ToArray(),
                 InputFileName = input.InputFileName,
-                NumberOfPizzas = 2
+                NumberOfPizzas = deliveredPizzas.Count
             };
         }
     }

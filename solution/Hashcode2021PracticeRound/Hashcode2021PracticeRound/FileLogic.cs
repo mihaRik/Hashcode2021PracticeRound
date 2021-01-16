@@ -10,7 +10,7 @@ namespace Hashcode2021PracticeRound
     public static class FileLogic
     {
         private static string _solutionsPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-        
+
         public static InputViewModel LoadInput(string input)
         {
             var filePath = Path.Combine(_solutionsPath, "inputs", $"{input}.in");
@@ -50,15 +50,31 @@ namespace Hashcode2021PracticeRound
 
             file.Close();
 
+            var twoPersonTeams = new Team[numberOf2PersonTeams];
+            var threePersonTeams = new Team[numberOf3PersonTeams];
+            var fourPersonTeams = new Team[numberOf4PersonTeams];
+
+            CreateDefaultData(twoPersonTeams, 2);
+            CreateDefaultData(threePersonTeams, 3);
+            CreateDefaultData(fourPersonTeams, 4);
+
             return new InputViewModel
             {
                 NumberOfPizzas = numberOfPizzas,
-                NumberOf2PersonTeams = numberOf2PersonTeams,
-                NumberOf3PersonTeams = numberOf3PersonTeams,
-                NumberOf4PersonTeams = numberOf4PersonTeams,
+                TwoPersonTeams = twoPersonTeams,
+                ThreePersonTeams = threePersonTeams,
+                FourPersonTeams = fourPersonTeams,
                 Pizzas = pizzas,
                 InputFileName = input
             };
+        }
+
+        private static void CreateDefaultData(Team[] teams, int teamSize)
+        {
+            for (int i = 0; i < teams.Length; i++)
+            {
+                teams[i] = new Team(teamSize);
+            }
         }
 
         public static void LoadOutput(OutputViewModel output)
@@ -70,7 +86,10 @@ namespace Hashcode2021PracticeRound
 
             foreach (var deliveredPizza in output.DeliveredPizzas)
             {
-                file.WriteLine($"{deliveredPizza.TeamSize} {string.Join(' ', deliveredPizza.DeliveredPizzas)}");
+                if (deliveredPizza.DeliveredPizzas[0] != null)
+                {
+                    file.WriteLine($"{deliveredPizza.TeamSize} {string.Join(' ', deliveredPizza.DeliveredPizzas)}");
+                }
             }
 
             file.Close();

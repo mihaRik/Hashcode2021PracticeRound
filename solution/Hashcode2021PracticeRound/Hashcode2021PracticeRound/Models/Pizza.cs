@@ -9,5 +9,6 @@ namespace Hashcode2021PracticeRound.Models
         public int Position { get; set; }
         public int NumberOfIngridients { get; set; }
         public string[] Ingridients { get; set; }
+        public bool IsDelivered { get; set; }
     }
 }
