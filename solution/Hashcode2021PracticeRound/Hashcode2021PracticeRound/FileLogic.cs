@@ -82,14 +82,12 @@ namespace Hashcode2021PracticeRound
             var filePath = Path.Combine(_solutionsPath, "outputs", $"{output.InputFileName}.out");
             var file = new StreamWriter(filePath);
 
-            file.WriteLine(output.NumberOfPizzas);
+            file.Write(output.NumberOfPizzas);
 
             foreach (var deliveredPizza in output.DeliveredPizzas)
             {
-                if (deliveredPizza.DeliveredPizzas[0] != null)
-                {
-                    file.WriteLine($"{deliveredPizza.TeamSize} {string.Join(' ', deliveredPizza.DeliveredPizzas)}");
-                }
+                file.Write(file.NewLine);
+                file.Write($"{deliveredPizza.TeamSize} {string.Join(' ', deliveredPizza.DeliveredPizzas)}");
             }
 
             file.Close();

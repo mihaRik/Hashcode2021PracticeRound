@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Hashcode2021PracticeRound
 {
@@ -13,8 +14,7 @@ namespace Hashcode2021PracticeRound
 
         static void Main(string[] args)
         {
-            var inputs = new string[5] { A, B, C, D, E };
-
+            var inputs = GetInputFile();
             for (int i = 0; i < inputs.Length; i++)
             {
                 //load input
@@ -24,49 +24,45 @@ namespace Hashcode2021PracticeRound
                 //load output
                 FileLogic.LoadOutput(output);
             }
-
-            //var inputFile = GetInputFile();
-            ////load input
-            //var input = FileLogic.LoadInput(inputFile);
-            ////process input
-            //var output = MainLogic.GetOutputV1(input);
-            ////load output
-            //FileLogic.LoadOutput(output);
         }
 
-        private static string GetInputFile()
+        private static string[] GetInputFile()
         {
+            var inputs = new List<string>();
             var validInputs = "ABCDE";
             string inputFile;
             do
             {
-                Console.Write("Select input file (A, B, C, D, E): ");
+                Console.Write("Select input file (A, B, C, D, E, ALL): ");
                 inputFile = Console.ReadLine();
             }
-            while (!validInputs.Contains(inputFile));
+            while (!validInputs.Contains(inputFile) && inputFile != "ALL");
 
             switch (inputFile)
             {
                 case "A":
-                    inputFile = A;
+                    inputs.Add(A);
                     break;
                 case "B":
-                    inputFile = B;
+                    inputs.Add(B);
                     break;
                 case "C":
-                    inputFile = C;
+                    inputs.Add(C);
                     break;
                 case "D":
-                    inputFile = D;
+                    inputs.Add(D);
                     break;
                 case "E":
-                    inputFile = E;
+                    inputs.Add(E);
+                    break;
+                case "ALL":
+                    inputs.AddRange(new string[5] { A, B, C, D, E });
                     break;
                 default:
                     break;
             }
 
-            return inputFile;
+            return inputs.ToArray();
         }
     }
 }

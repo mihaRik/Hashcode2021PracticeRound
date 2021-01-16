@@ -48,6 +48,8 @@ namespace Hashcode2021PracticeRound
             {
                 var deliveredPizzasForTeam = teams[i].DeliveredPizzas;
 
+                if (deliveredPizzasForTeam[0] is null) continue;
+
                 deliveredPizzas.Add(new DeliveredPizza
                 {
                     DeliveredPizzas = deliveredPizzasForTeam,
